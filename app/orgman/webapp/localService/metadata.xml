@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="EmpService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Employees" EntityType="EmpService.Employees">
+                    <NavigationPropertyBinding Path="mgr" Target="Managers"/>
+                </EntitySet>
+                <EntitySet Name="Managers" EntityType="EmpService.Managers">
+                    <NavigationPropertyBinding Path="emps" Target="Employees"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Employees">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="email" Type="Edm.String" MaxLength="100"/>
+                <Property Name="name" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="mgr" Type="EmpService.Managers" Partner="emps">
+                    <ReferentialConstraint Property="mgr_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="mgr_ID" Type="Edm.Guid"/>
+                <Property Name="level" Type="Edm.Int32"/>
+                <Property Name="level_name" Type="Edm.String" MaxLength="10"/>
+                <Property Name="skills" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Managers">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="practice" Type="Edm.String" MaxLength="20"/>
+                <Property Name="role" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="emps" Type="Collection(EmpService.Employees)" Partner="mgr"/>
+            </EntityType>
+            <Annotations Target="EmpService.Employees/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="EmpService.Employees/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="EmpService.Employees/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="EmpService.Employees/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="EmpService.Employees/ID">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="EmpService.Employees/email">
+                                        <Annotation Term="Validation.Pattern" String=".+@abcdzxy[.]com"/>
+                                    </Annotations>
+                                    <Annotations Target="EmpService.Employees/name">
+                                        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+                                    </Annotations>
+                                    <Annotations Target="EmpService.Employees/level">
+                                        <Annotation Term="Validation.Minimum" Int="1"/>
+                                        <Annotation Term="Validation.Maximum" Int="6"/>
+                                    </Annotations>
+                                    <Annotations Target="EmpService.Managers/ID">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                </Schema>
+                            </edmx:DataServices>
+                        </edmx:Edmx>

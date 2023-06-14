@@ -4,7 +4,10 @@ using { com.sd.org as my } from '../db/schema';
 service EmpService { // Service name
     entity Employees as projection on my.Employees; // oData entity - Employees
 
-    @readonly
+    // @readonly
+    // @(restrict: [
+    //     {grant: 'READ', to: 'Watcher'}
+    // ])
     entity Managers as projection on my.Managers 
         excluding { createdBy, modifiedBy, createdAt, modifiedAt }; // oData entity - Managers
 }
