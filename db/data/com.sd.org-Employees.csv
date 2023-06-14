@@ -1,0 +1,5 @@
+ID;createdAt;createdBy;email;name;mgr_id;level;skills
+20466922-7d57-4e76-b14c-e53fd97dcb11;2023-04-17;admin.bot@abcdzxy.com;emp1@abcdzxy.com;Employee 1;20466921-7d57-4e76-b14c-e53fd97dcb11;1;SAP BTP, ABAP, NodeJs
+20466922-7d57-4e76-b14c-e53fd97dcb12;2023-04-17;admin.bot@abcdzxy.com;emp2@abcdzxy.com;Employee 2;20466921-7d57-4e76-b14c-e53fd97dcb11;2;NodeJs, SAP UI5
+20466922-7d57-4e76-b14c-e53fd97dcb13;2023-04-17;admin.bot@abcdzxy.com;emp3@abcdzxy.com;Employee 3;20466921-7d57-4e76-b14c-e53fd97dcb12;2;Full Stack developer
+20466922-7d57-4e76-b14c-e53fd97dcb14;2023-04-17;admin.bot@abcdzxy.com;emp4@abcdzxy.com;Employee 4;20466921-7d57-4e76-b14c-e53fd97dcb12;3;SAP BTP Security
