@@ -5,5 +5,6 @@ service EmpService { // Service name
     entity Employees as projection on my.Employees; // oData entity - Employees
 
     @readonly
-    entity Managers as projection on my.Managers excluding { createdBy, modifiedBy }; // oData entity - Managers
+    entity Managers as projection on my.Managers 
+        excluding { createdBy, modifiedBy, createdAt, modifiedAt }; // oData entity - Managers
 }
