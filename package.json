@@ -11,10 +11,14 @@
   },
   "devDependencies": {
     "@sap/ux-specification": "^1.108.7",
+    "chai": "^4.3.7",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0",
     "sqlite3": "^5"
   },
   "scripts": {
     "start": "cds-serve",
+    "test": "mocha tests/test-runner.js --timeout 10000 --exit",
     "watch-orgman": "cds watch --open orgman/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "sapux": [

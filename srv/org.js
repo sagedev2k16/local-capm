@@ -37,16 +37,26 @@ module.exports = function (){
     });
 
     this.before('CREATE', 'Employees', async (req) => {
-        let q = INSERT.into(Managers).entries(
-            {
-                ID: req.data.mgr.ID,
-                name: req.data.mgr.name,
-                role: req.data.mgr.role,
-                practice: req.data.mgr.practice
-            }
-        );
+        if(req.data.mgr) {
+            let q = INSERT.into(Managers).entries(
+                {
+                    ID: req.data.mgr.ID,
+                    name: req.data.mgr.name,
+                    role: req.data.mgr.role,
+                    practice: req.data.mgr.practice
+                }
+            );
 
-        let iv = await cds.db.run(q);
-        console.log("Manager added");
+            let iv = await cds.db.run(q);
+            console.log("Manager added");    
+        }
+    });
+
+    this.on ('error', (err, req) => {
+        if(err.code === 'ASSERT_FORMAT') {
+            err.message = `Format of ${err.target} is not correct. Expected format is ${err.args[1]}`;
+        } else if(err.code === 'ASSERT_RANGE') {
+            err.message = `Range of ${err.target} is not correct. Expected range is [${err.args[1]}-${err.args[2]}]`;
+        }
     });
 }
